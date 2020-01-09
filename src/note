@@ -25,8 +25,7 @@ def add_note(args):
 def list_notes(args):
     if len(args) > 2:
         error("note list received an unexpected argument")
-    for note in DATA_LAYER.list_notes():
-        print(note)
+    print("".join(DATA_LAYER.list_notes()), end='')
 
 def delete_note(args):
     if len(args) != 3:
@@ -36,10 +35,10 @@ def delete_note(args):
     except Exception as exc:
         error(exc)
     else:
-        print("Deleted note {note_id}.".format(args[3]))
+        print("Deleted note {note_id}.".format(note_id=args[2]))
 
 COMMANDS = {
-    "add": add_note,
+    "save": add_note,
     "list": list_notes,
     "delete": delete_note,
 }
