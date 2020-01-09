@@ -13,27 +13,29 @@ class FileStore(object):
                     pass
         super().__init__()
 
-    def add(self, note):
+    def add_note(self, note):
         with open(self.file_name, 'a+') as f:
             f.write("{idx} {note}\n".format(idx=self.last_index + 1, note=note))
         self.last_index += 1
         return self.last_index
 
-    def list(self):
+    def list_notes(self):
         with open(self.file_name, 'r') as f:
-            all_lines = f.readlines()
-        notes = list()
-        for line in all_lines:
-            parsed = line.split(' ', 1)
-            notes.append(Note(note_id=parsed[0], text=parsed[1]))
-        return notes
+            return f.readlines()
 
-    def delete(self, idx):
+    def delete_note(self, idx):
         with open(self.file_name, 'w') as f:
             all_lines = f.readlines()
+            print("All lines:")
+            print(all_lines)
             notes = list()
+            note_found = False
             for line in all_lines:
                 line_idx = line.split(' ', 1)[0]
-                if line_idx != idx:
+                if line_idx == idx:
+                    note_found = True
+                else:
                     notes.append(line)
+            if not note_found:
+                raise Exception("Note with ID {idx} does not exist.".format(idx=idx))
             f.writelines(notes)
