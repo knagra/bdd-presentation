@@ -1,3 +1,8 @@
+#!/usr/bin/python
+
+from data.file_store import FileStore
+
+
 def main():
     pass
 

@@ -10,7 +10,7 @@ class FileStore(object):
                 try:
                     self.last_index = int(all_lines[-1].split(' ', 1)[0])
                 except:
-                    continue
+                    pass
         super().__init__()
 
     def add(self, note):
