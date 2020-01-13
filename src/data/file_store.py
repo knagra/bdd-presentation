@@ -43,11 +43,10 @@ class FileStore(object):
         notes = list()
         note_found = False
         for note in all_notes:
-            note_idx = note.split(' ', 1)[0]
-            if note_idx == idx:
+            if note[0] == idx:
                 note_found = True
             else:
-                notes.append(note)
+                notes.append('{entry}\n'.format(entry=' '.join(note)))
         if not note_found:
             raise Exception("Note with ID {idx} does not exist.".format(idx=idx))
         with open(self.file_name, 'w+') as f:
