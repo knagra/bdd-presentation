@@ -1,6 +1,10 @@
 import os
+from datetime import datetime
 
 class FileStore(object):
+
+    DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
+
     def __init__(self, file_name=None):
         if file_name is None:
             file_name = "file_store.txt"
@@ -20,14 +24,19 @@ class FileStore(object):
         super().__init__()
 
     def add_note(self, note):
+        dt = datetime.now().strftime(self.DATETIME_FORMAT)
         with open(self.file_name, 'a') as f:
-            f.write("{idx} {note}\n".format(idx=self.last_index + 1, note=note))
+            f.write("{idx} {dt} {note}\n".format(
+                idx=self.last_index + 1,
+                dt=dt,
+                note=note
+            ))
         self.last_index += 1
         return self.last_index
 
     def list_notes(self):
         with open(self.file_name, 'r') as f:
-            return f.readlines()
+            return list(map(lambda s: s.strip().split(' ', 2), f.readlines()))
 
     def delete_note(self, idx):
         all_notes = self.list_notes()

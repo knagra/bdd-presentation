@@ -28,7 +28,10 @@ class CLI(object):
     def list_notes(self, args):
         if len(args) > 2:
             error("note list received an unexpected argument")
-        print("".join(self.data_layer.list_notes()), end='')
+        all_notes = self.data_layer.list_notes()
+        print("added | index | note")
+        for note in all_notes:
+            print(" | ".join(note))
 
     def delete_note(self, args):
         if len(args) != 3:
