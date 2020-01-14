@@ -81,3 +81,20 @@ def test_delete_happy_path(DataLayer):
 def test_delete_invalid_id():
     <...>
 ```
+
+These are tests for the internals of the application, and though they seem natural for
+developers, they do have significant downsides.
+A few bad tests can be seen in the `tests/` directory.
+Tests such as these also need to be updated when the internals of the application are
+changed.
+When an intermediate interface is changed in the source code, two sets of tests - the
+tests for the behavior of an implementation of the interface as well as all uses of that
+interface.
+An example of this issue can be seen with the `FileStore` interface.
+
+Not only do unit tests provide less direct value than behavior tests, they also
+encourage a pattern of mocking that often leads to undesired behavior slipping through
+the test suite.
+Some examples of this can be found in the `tests/` directory.
+In particular, the `list_notes` method of the mock does not conform to the production
+interface's method.
