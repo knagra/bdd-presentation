@@ -70,6 +70,19 @@ class TestFileStore(TestCase):
         r.assert_called_once()
         w.assert_called_once_with(["1 2001 note1\n", "3 2003 note3\n"])
 
+    def test_delete_invalid_id(self):
+        all_notes = "1 2001 note1\n" + \
+            "2 2002 note2\n" + \
+            "4 2004 note4\n"
+        mo = mock_open(read_data=all_notes)
+        with patch('src.data.file_store.open', mo):
+            self.assertRaises(Exception, self.file_store.delete_note, "3")
+        assert mo.call_count == 1
+        r = mo().readlines
+        w = mo().writelines
+        r.assert_called_once()
+        w.assert_not_called()
+
 
 if __name__ == '__main__':
     unittest.main()

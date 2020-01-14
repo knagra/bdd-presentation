@@ -19,6 +19,11 @@ class TestCLI(TestCase):
         self.data_layer.add_note.assert_called_once_with("my note")
 
     def test_list_notes(self):
+        # This is a bad test. The real FileStore returns tuples of form
+        # (<idx>, <datetime>, <note string>)
+        # while our mock returns items of form
+        # (<datetime>, <idx>, <note string>)
+        # In this case, our tests won't alert us to the issue of misordered printing.
         self.data_layer.list_notes.return_value = [
             ("2008", "1", "my note"),
             ("2009", "2", "second note"),

@@ -56,10 +56,7 @@ Then we might be tempted to write the following tests:
 def test_add_happy_path():
     <...>
 
-def test_add_unicode():
-    <...>
-
-def test_get():
+def test_list_notes():
     <...>
 
 def test_delete_happy_path():
