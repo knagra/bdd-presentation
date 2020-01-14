@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from data.file_store import FileStore
+from src.data.file_store import FileStore
 import sys
 
 
