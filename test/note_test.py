@@ -17,3 +17,24 @@ class TestCLI(TestCase):
             output = fake_out.getvalue()
             assert output == "Added note 1.\n", output
         self.data_layer.add_note.assert_called_once_with("my note")
+
+    def test_list_notes(self):
+        self.data_layer.list_notes.return_value = [
+            ("2008", "1", "my note"),
+            ("2009", "2", "second note"),
+        ]
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            self.cli.list_notes(["", ""])
+            output = fake_out.getvalue()
+            assert output == "added | index | note\n" + \
+                "2008 | 1 | my note\n" + \
+                "2009 | 2 | second note\n"
+        self.data_layer.list_notes.assert_called_once_with()
+
+    def test_delete_note(self):
+        self.data_layer.delete_note.return_value = ""
+        with patch('sys.stdout', new=StringIO()) as fake_out:
+            self.cli.delete_note(["", "", "1"])
+            output = fake_out.getvalue()
+            assert output == "Deleted note 1.\n"
+        self.data_layer.delete_note.assert_called_once_with("1")
