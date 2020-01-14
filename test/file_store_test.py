@@ -57,6 +57,28 @@ class TestFileStore(TestCase):
             ["2013", "5", "My third note."],
         ], result
 
+    def test_list_notes_backwards(self):
+        # The functionality this method tests isn't actually used by any consumer of the
+        # FileStore interface.
+        # This test will give us the illusion that the functionality is actually used
+        # and will promote cruft remaining in our interface.
+        all_notes = "2008 1 My first note.\n" + \
+            "2009 2 My second note.\n" + \
+            "2013 5 My third note.\n"
+        mo = mock_open(read_data=all_notes)
+        with patch('src.data.file_store.open', mo):
+            result = self.file_store.list_notes_backwards()
+        mo.assert_called_once_with(self.TEST_FILE_NAME, 'r')
+        r = mo().readlines
+        r.assert_called_once()
+        assert type(result) == list, type(result)
+        assert len(result) == 3
+        assert result == [
+            ["2013", "5", "My third note."],
+            ["2009", "2", "My second note."],
+            ["2008", "1", "My first note."],
+        ], result
+
     def test_delete_note(self):
         all_notes = "1 2001 note1\n" + \
             "2 2002 note2\n" + \

@@ -38,6 +38,15 @@ class FileStore(object):
         with open(self.file_name, 'r') as f:
             return list(map(lambda s: s.strip().split(' ', 2), f.readlines()))
 
+    def list_notes_backwards(self):
+        # This functionality is never used by a consumer of this API.
+        # Since it's tested by our unit tests, we will be less likely to notice this
+        # fact.
+        # Behavior testing instead forces us to consider how we would hit logic deep
+        # inside our application and whether that logic actually provides real value
+        # to users.
+        return list(reversed(self.list_notes()))
+
     def delete_note(self, idx):
         all_notes = self.list_notes()
         notes = list()
