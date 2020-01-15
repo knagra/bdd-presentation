@@ -1,10 +1,10 @@
 from io import StringIO
-from unittest import TestCase
+import unittest
 from unittest.mock import Mock, patch
 from src.note import CLI
 
 
-class TestCLI(TestCase):
+class TestCLI(unittest.TestCase):
 
     def setUp(self):
         self.data_layer = Mock()
@@ -43,3 +43,6 @@ class TestCLI(TestCase):
             output = fake_out.getvalue()
             assert output == "Deleted note 1.\n"
         self.data_layer.delete_note.assert_called_once_with("1")
+
+if __name__ == "__main__":
+    unittest.main()

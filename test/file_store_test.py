@@ -1,9 +1,9 @@
-from unittest import TestCase
+import unittest
 from unittest.mock import mock_open, patch
 from src.data.file_store import FileStore
 
 
-class TestFileStore(TestCase):
+class TestFileStore(unittest.TestCase):
 
     # Using a filename here that is different from the one we actually use in the source
     # can cause some errors that will not be caught by our tests.

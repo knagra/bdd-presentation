@@ -1,6 +1,9 @@
 #!/usr/bin/python
 
-from src.data.file_store import FileStore
+try:
+    from data.file_store import FileStore
+except ModuleNotFoundError:
+    from src.data.file_store import FileStore
 import sys
 
 
