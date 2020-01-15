@@ -1,5 +1,4 @@
 import os
-from datetime import datetime
 
 class FileStore(object):
 
@@ -24,11 +23,11 @@ class FileStore(object):
         super().__init__()
 
     def add_note(self, note):
-        dt = datetime.now().strftime(self.DATETIME_FORMAT)
+        length = len(note)
         with open(self.file_name, 'a') as f:
-            f.write("{idx} {dt} {note}\n".format(
+            f.write("{idx} {length} {note}\n".format(
                 idx=self.last_index + 1,
-                dt=dt,
+                length=length,
                 note=note
             ))
         self.last_index += 1

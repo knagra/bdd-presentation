@@ -9,10 +9,17 @@ Feature: Add a note
         | second note   |
         | third note    |
         When I add a note "my added note"
-        Then the response should be successful
+        Then the response should be "Added note 4."
         When I list notes
         Then the response should be:
         | first note    |
         | second note   |
         | third note    |
         | my added note |
+
+    Scenario: Add a note with no notes currently present
+        When I add a note "my added note"
+        Then the response should be "Added note 4."
+        When I list notes
+        Then the response should be:
+        | idx   | length    | note      |

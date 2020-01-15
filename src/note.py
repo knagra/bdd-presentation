@@ -29,7 +29,7 @@ class CLI(object):
         if len(args) > 2:
             error("note list received an unexpected argument")
         all_notes = self.data_layer.list_notes()
-        print("added | index | note")
+        print("length | index | note")
         for note in all_notes:
             print(" | ".join(note))
 
