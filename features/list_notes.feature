@@ -5,15 +5,18 @@ Feature: List notes
 
     Scenario: List without any notes present
         When I list notes
-        Then the response should be empty
+        Then the response should be:
+        | index | length    | note  |
 
     Scenario: List some notes
         Given that there are notes:
+        | note          |
         | first note    |
         | second note   |
         | third note    |
         When I list notes
         Then the response should be:
-        | first note    |
-        | second note   |
-        | third note    |
+        | index | length    | note          |
+        | 1     | 10        | first note    |
+        | 2     | 11        | second note   |
+        | 3     | 10        | third note    |

@@ -5,6 +5,7 @@ Feature: Delete notes
 
     Scenario: Delete a note
         Given that there are notes:
+        | note          |
         | first note    |
         | second note   |
         | third note    |
