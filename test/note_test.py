@@ -25,15 +25,15 @@ class TestCLI(TestCase):
         # (<datetime>, <idx>, <note string>)
         # In this case, our tests won't alert us to the issue of misordered printing.
         self.data_layer.list_notes.return_value = [
-            ("2008", "1", "my note"),
-            ("2009", "2", "second note"),
+            ("7", "1", "my note"),
+            ("11", "2", "second note"),
         ]
         with patch('sys.stdout', new=StringIO()) as fake_out:
             self.cli.list_notes(["", ""])
             output = fake_out.getvalue()
-            assert output == "added | index | note\n" + \
-                "2008 | 1 | my note\n" + \
-                "2009 | 2 | second note\n"
+            assert output == "length | index | note\n" + \
+                "7 | 1 | my note\n" + \
+                "11 | 2 | second note\n"
         self.data_layer.list_notes.assert_called_once_with()
 
     def test_delete_note(self):
