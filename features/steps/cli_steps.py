@@ -45,3 +45,10 @@ def then_the_response_should_be(context):
         expected += " | ".join(row.cells) + "\n"
     actual = context.proc.stdout.read().strip()
     assert expected.strip() == actual, (expected.strip(), actual)
+
+@then('the response should end with "{message}"')
+def then_the_response_should_end_with(context, message):
+    out = context.proc.stdout.read().strip()
+    # Make sure your steps do what they claim to do.
+    assert out == message, (message, out)
+    # assert out.endswith(message), (message, out)
