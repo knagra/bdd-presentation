@@ -26,7 +26,15 @@ Feature: Add a note
         Then the response should be "Added note 2."
         When I add a note "third note"
         Then the response should be "Added note 3."
+        # Gherkin is not immune to readability issues and in fact has a few of its own:
+        When I add a note "a very long, obnoxious, really hard to read, falling off the edge of the screen, have to scroll a long way to see it all, you have to wonder who thought this was a good idea note"
+        Then the response should be "Added note 4."
         When I list notes
         # This is one down side of Gherkin - readability can suffer from checking
         # very long messages.
-        Then the response should be "index | length | note\n1 | 6 | note 1\n2 | 8 | note dos\n3 | 10 | third note\n"
+        Then the response should be:
+        | index | length    | note          |
+        | 1     | 6         | note 1        |
+        | 2     | 8         | note dos      |
+        | 3     | 10        | third note    |
+        | 4     | 178       | a very long, obnoxious, really hard to read, falling off the edge of the screen, have to scroll a long way to see it all, you have to wonder who thought this was a good idea note |

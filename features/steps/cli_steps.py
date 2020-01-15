@@ -31,7 +31,7 @@ def when_i_delete_the_note_with_id(context, note_id):
 @then('the response should be "{message}"')
 def then_the_response_should_be_successful(context, message):
     out = context.proc.stdout.read().strip()
-    assert out == message, out
+    assert out == message, (message, out)
 
 @then('the response should be empty')
 def then_the_response_should_be_empty(context):
@@ -44,4 +44,4 @@ def then_the_response_should_be(context):
     for row in context.table:
         expected += " | ".join(row.cells) + "\n"
     actual = context.proc.stdout.read().strip()
-    assert expected == actual, (expected, actual)
+    assert expected.strip() == actual, (expected.strip(), actual)
